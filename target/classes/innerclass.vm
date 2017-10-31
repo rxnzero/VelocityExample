@@ -1,0 +1,43 @@
+	#set($template.innerLocal = $inner)
+	public static class $template.innerLocal.innerClass
+	{
+
+	#foreach( $field in $template.innerLocal.dtoFields)
+		#if($field.type.equals("List"))
+		/**
+		* <p>$field.comment</p>
+		*/
+		private List<$field.innerClass> $field.dtoFieldName;
+		#set($inner = $field)
+		#parse('templates/innerclass.vm')
+		
+		#else
+		/**
+		* <p>$field.comment</p>
+		*/
+		private $field.type $field.dtoFieldName;
+		 #end
+	#end
+	
+	#foreach( $field in $template.innerLocal.dtoFields)
+		#if($field.type.equals("List"))
+		public List<$field.innerClass> get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
+		{
+			return ${field.dtoFieldName};
+		}
+		public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( List<$field.innerClass> ${field.dtoFieldName} )
+		{
+			this.${field.dtoFieldName} = ${field.dtoFieldName};
+		}
+		#else
+		public $field.type get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
+		{
+			return ${field.dtoFieldName};
+		}
+		public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( $field.type ${field.dtoFieldName} )
+		{
+			this.${field.dtoFieldName} = ${field.dtoFieldName};
+		}
+		#end
+	#end
+	}

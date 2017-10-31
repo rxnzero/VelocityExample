@@ -1,0 +1,102 @@
+#macro(innerClassGen $innerLocal)
+	
+	public static class $innerLocal.innerClass
+	{
+
+	#foreach( $field in $innerLocal.dtoFields)
+		#if($field.type.equals("List"))
+		/**
+		* <p>$field.comment</p>
+		*/
+		private List<$field.innerClass> $field.dtoFieldName;
+		#set($inner = $field)
+		#innerClassGen($inner)
+		
+		#else
+		/**
+		* <p>$field.comment</p>
+		*/
+		private $field.type $field.dtoFieldName;
+		 #end
+	#end
+	
+	#foreach( $field in $innerLocal.dtoFields)
+		#if($field.type.equals("List"))
+		public List<$field.innerClass> get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
+		{
+			return ${field.dtoFieldName};
+		}
+		public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( List<$field.innerClass> ${field.dtoFieldName} )
+		{
+			this.${field.dtoFieldName} = ${field.dtoFieldName};
+		}
+		#else
+		public $field.type get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
+		{
+			return ${field.dtoFieldName};
+		}
+		public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( $field.type ${field.dtoFieldName} )
+		{
+			this.${field.dtoFieldName} = ${field.dtoFieldName};
+		}
+		#end
+	#end
+	}
+#end
+
+#if($packageName)package ${packageName.toLowerCase()};
+#end
+
+import java.io.Serializable;
+import java.util.List;
+
+#foreach( $importName in $imports )
+import $importName;
+#end
+
+/**
+* $comment
+*
+*/
+public class $dtoName #if($superClass)extends ${superClass}#end implements Serializable
+{
+	private static final long serialVersionID = 1L;
+#foreach( $field in $dtoFields)
+	#if($field.type.equals("List"))
+	/**
+	* <p>$field.comment</p>
+	*/
+	private List<$field.innerClass> $field.dtoFieldName;
+	#set($inner = $field)
+	#innerClassGen($inner)
+	
+	#else
+	/**
+	* <p>$field.comment</p>
+	*/
+	private $field.type $field.dtoFieldName;
+	 #end
+#end
+
+#foreach( $field in $dtoFields)
+	#if($field.type.equals("List"))
+	public List<$field.innerClass> get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
+	{
+		return ${field.dtoFieldName};
+	}
+	public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( List<$field.innerClass> ${field.dtoFieldName} )
+	{
+		this.${field.dtoFieldName} = ${field.dtoFieldName};
+	}
+	#else
+	public $field.type get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
+	{
+		return ${field.dtoFieldName};
+	}
+	public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( $field.type ${field.dtoFieldName} )
+	{
+		this.${field.dtoFieldName} = ${field.dtoFieldName};
+	}
+	#end
+#end
+}

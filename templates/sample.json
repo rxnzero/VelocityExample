@@ -1,0 +1,60 @@
+{
+	"dtoName":"LoginUserDTO" , 
+	"entityName":"LoginUser" ,
+	"comment":"vo generate test", 
+	
+	"dtoFields" : [
+	{
+	"entityFieldName" : "id",
+	"dtoFieldName" : "id",
+	"type" : "int",
+	"comment" : "Integer type"
+	},
+	{
+	"entityFieldName" : "name",
+	"dtoFieldName" : "name",
+	"type" : "String",
+	"comment" : "string type"
+	},
+	{
+	"entityFieldName" : "address",
+	"dtoFieldName" : "address",
+	"type" : "List",
+	"innerClass" : "Address",
+	"comment" : "java type",
+		"dtoFields" : [
+		{
+		"entityFieldName" : "addr",
+		"dtoFieldName" : "addr",
+		"type" : "String",
+		"comment" : "inner String type"
+		},
+		{
+		"entityFieldName" : "zipcode",
+		"dtoFieldName" : "zipcode",
+		"type" : "List",
+		"innerClass" : "ZipUnit",
+		"comment" : "2 level inner java type",
+			"dtoFields" : [
+			{
+			"entityFieldName" : "prefix",
+			"dtoFieldName" : "prefix",
+			"type" : "String",
+			"comment" : "String type"
+			},
+			{
+			"entityFieldName" : "suffix",
+			"dtoFieldName" : "suffix",
+			"type" : "String",
+			"comment" : "String type"
+			}
+			]
+		}
+		]
+	}
+	],
+	"imports": [
+		"java.util.Date"
+	],
+	"packageName" : "kr.co.dhlee.dto"
+}
