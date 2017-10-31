@@ -12,9 +12,6 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-
-
-
 public class ClassGenerator
 {
     public static void main( String[] args )

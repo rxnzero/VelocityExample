@@ -28,54 +28,52 @@ public class LoginUserDTO  implements Serializable
 	public static class Address
 	{
 		/**
-		* <p>inner String type</p>
-		*/
-		private String addr;
-		/**
+    	* <p>inner String type</p>
+    	*/
+    	private String addr;
+   	 /**
 		* <p>2 level inner java type</p>
 		*/
-		private List<ZipUnit> zipcode;
+    	private List<ZipUnit> zipcode;
 	
-		public static class ZipUnit
-		{
+    	public static class ZipUnit
+    	{
+    		/**
+        	* <p>String type</p>
+        	*/
+        	private String prefix;
+    		/**
+        	* <p>String type</p>
+        	*/
+        	private String suffix;
 	
-			/**
-			* <p>String type</p>
-			*/
-			private String prefix;
-			/**
-			* <p>String type</p>
-			*/
-			private String suffix;
-		
-			public String getPrefix()
-			{
-				return prefix;
-			}
-			public void setPrefix( String prefix )
-			{
-				this.prefix = prefix;
-			}
-			public String getSuffix()
-			{
-				return suffix;
-			}
-			public void setSuffix( String suffix )
-			{
-				this.suffix = suffix;
-			}
-		}
-		
+        	public String getPrefix()
+        	{
+    			return prefix;
+        	}
+    		public void setPrefix( String prefix )
+    		{
+    	    	this.prefix = prefix;
+        	}
+        	public String getSuffix()
+        	{
+    			return suffix;
+        	}
+    		public void setSuffix( String suffix )
+    		{
+    	    	this.suffix = suffix;
+        	}
+    	}
 	
-		public String getAddr()
-		{
+    	public String getAddr()
+    	{
 			return addr;
-		}
+    	}
 		public void setAddr( String addr )
 		{
-			this.addr = addr;
-		}
-		public List<ZipUnit> getZipcode()
+	    	this.addr = addr;
+    	}
+    	public List<ZipUnit> getZipcode()
 		{
 			return zipcode;
 		}

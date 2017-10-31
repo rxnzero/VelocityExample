@@ -1,47 +1,46 @@
-#macro(innerClassGen $innerLocal)
+#macro(innerClassGen $innerLocal $indent)
 	
-	public static class $innerLocal.innerClass
-	{
-
-	#foreach( $field in $innerLocal.dtoFields)
-		#if($field.type.equals("List"))
-		/**
-		* <p>$field.comment</p>
-		*/
-		private List<$field.innerClass> $field.dtoFieldName;
-		#set($inner = $field)
-		#innerClassGen($inner)
-		
-		#else
-		/**
-		* <p>$field.comment</p>
-		*/
-		private $field.type $field.dtoFieldName;
-		 #end
+$indent	public static class $innerLocal.innerClass
+$indent	{
+#foreach( $field in $innerLocal.dtoFields)
+#if($field.type.equals("List"))
+$indent   	 /**
+$indent		* <p>$field.comment</p>
+$indent		*/
+$indent    	private List<$field.innerClass> $field.dtoFieldName;
+#set($inner = $field)
+#set($indentNew = $indent+"    ")
+#innerClassGen($inner $indentNew)
+#else
+$indent		/**
+$indent    	* <p>$field.comment</p>
+$indent    	*/
+$indent    	private $field.type $field.dtoFieldName;
 	#end
+#end
 	
-	#foreach( $field in $innerLocal.dtoFields)
-		#if($field.type.equals("List"))
-		public List<$field.innerClass> get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
-		{
-			return ${field.dtoFieldName};
-		}
-		public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( List<$field.innerClass> ${field.dtoFieldName} )
-		{
-			this.${field.dtoFieldName} = ${field.dtoFieldName};
-		}
-		#else
-		public $field.type get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
-		{
-			return ${field.dtoFieldName};
-		}
-		public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( $field.type ${field.dtoFieldName} )
-		{
-			this.${field.dtoFieldName} = ${field.dtoFieldName};
-		}
-		#end
+#foreach( $field in $innerLocal.dtoFields)
+	#if($field.type.equals("List"))
+$indent    	public List<$field.innerClass> get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
+$indent		{
+$indent			return ${field.dtoFieldName};
+$indent		}
+$indent		public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( List<$field.innerClass> ${field.dtoFieldName} )
+$indent		{
+$indent			this.${field.dtoFieldName} = ${field.dtoFieldName};
+$indent		}
+	#else
+$indent    	public $field.type get${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}()
+$indent    	{
+$indent			return ${field.dtoFieldName};
+$indent    	}
+$indent		public void set${field.dtoFieldName.substring(0,1).toUpperCase()}${field.dtoFieldName.substring(1)}( $field.type ${field.dtoFieldName} )
+$indent		{
+$indent	    	this.${field.dtoFieldName} = ${field.dtoFieldName};
+$indent    	}
 	#end
-	}
+#end
+$indent	}
 #end
 
 #if($packageName)package ${packageName.toLowerCase()};
@@ -68,7 +67,8 @@ public class $dtoName #if($superClass)extends ${superClass}#end implements Seria
 	*/
 	private List<$field.innerClass> $field.dtoFieldName;
 	#set($inner = $field)
-	#innerClassGen($inner)
+	#set($indent = "")
+	#innerClassGen($inner $indent)
 	
 	#else
 	/**
